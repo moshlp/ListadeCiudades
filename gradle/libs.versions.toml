@@ -21,6 +21,7 @@ koin = "3.5.3"
 # AndroidX Lifecycle
 androidxLifecycle = "2.7.0"
 ksp = "2.0.21-1.0.27"
+androidxNavigation = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,7 +59,7 @@ insertkoin-koin-androidx-compose = { group = "io.insert-koin", name = "koin-andr
 
 # AndroidX Lifecycle
 androidx-lifecycle-viewmodelKtx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

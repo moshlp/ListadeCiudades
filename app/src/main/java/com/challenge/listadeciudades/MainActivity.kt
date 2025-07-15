@@ -3,9 +3,17 @@ package com.challenge.listadeciudades
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.challenge.listadeciudades.ui.screen.CiudadDownloadScreen
 import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import androidx.navigation.compose.rememberNavController
+import com.challenge.listadeciudades.ui.screen.HomeScreen
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +25,25 @@ class MainActivity : ComponentActivity() {
         viewModel.verificarYDescargar(jsonUrl)
 
         setContent {
-            CiudadDownloadScreen(viewModel = viewModel)
+            val navController = rememberNavController()
+            val isReady by viewModel.isReady.collectAsState()
+
+            LaunchedEffect(isReady) {
+                if (isReady) {
+                    navController.navigate("home") {
+                        popUpTo("loader") { inclusive = true }
+                    }
+                }
+            }
+
+            NavHost(navController = navController, startDestination = "loader") {
+                composable("loader") {
+                    CiudadDownloadScreen(viewModel = viewModel)
+                }
+                composable("home") {
+                    HomeScreen(navController = navController, viewModel = viewModel)
+                }
+            }
         }
     }
 }

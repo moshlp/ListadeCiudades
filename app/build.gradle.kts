@@ -80,4 +80,6 @@ dependencies {
 
     // AndroidX Lifecycle (para ViewModel + StateFlow)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
+
+    implementation(libs.androidx.navigation.compose)
 }

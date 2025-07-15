@@ -11,7 +11,8 @@ data class CiudadEntity(
     @SerializedName("_id") val id: Int,
     val name: String,
     val country: String,
-    @Embedded val coord: Coord
+    @Embedded val coord: Coord,
+    val isFavorite: Boolean = false,
 )
 
 data class Coord(
