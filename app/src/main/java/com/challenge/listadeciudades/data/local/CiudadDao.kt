@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CiudadDao {
@@ -17,10 +18,10 @@ interface CiudadDao {
     suspend fun limpiarTodo()
 
     @Query("SELECT * FROM ciudades ORDER BY name ASC")
-    suspend fun getAll(): List<CiudadEntity>
+    fun getAll(): Flow<List<CiudadEntity>>
 
-    @Query("SELECT * FROM ciudades WHERE name LIKE '%' || :query || '%' ORDER BY name ASC")
-    suspend fun searchByName(query: String): List<CiudadEntity>
+    @Query("SELECT * FROM ciudades WHERE name LIKE :query || '%' ORDER BY name ASC")
+    fun searchByName(query: String): Flow<List<CiudadEntity>>
 
     @Query("SELECT * FROM ciudades WHERE isFavorite = 1 ORDER BY name ASC")
     suspend fun getFavorites(): List<CiudadEntity>

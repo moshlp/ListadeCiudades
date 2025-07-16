@@ -2,23 +2,16 @@ package com.challenge.listadeciudades.data.repository
 
 import com.challenge.listadeciudades.data.local.CiudadDao
 import com.challenge.listadeciudades.data.local.CiudadEntity
+import kotlinx.coroutines.flow.Flow
 
 class CiudadRepository(private val dao: CiudadDao) {
 
-    suspend fun getAll(): List<CiudadEntity> {
-        return dao.getAll()
-    }
+    fun getAll(): Flow<List<CiudadEntity>> = dao.getAll()
 
-    suspend fun searchByName(query: String): List<CiudadEntity> {
-        return dao.searchByName(query)
-    }
+    fun searchByName(query: String): Flow<List<CiudadEntity>> = dao.searchByName(query)
 
-    suspend fun getFavorites(): List<CiudadEntity> {
-        return dao.getFavorites()
-    }
-
-    suspend fun toggleFavorite(id: Int, isFavorite: Boolean) {
-        dao.toggleFavorite(id, isFavorite)
+    suspend fun toggleFavorite(id: Int, isFavorite: Boolean){
+        return dao.toggleFavorite(id, isFavorite)
     }
 
     suspend fun contarCiudades(): Int = dao.contarCiudades()

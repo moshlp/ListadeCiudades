@@ -10,7 +10,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -35,26 +38,14 @@ class CiudadViewModel(
     val uiState: StateFlow<CiudadUiState> get() = _uiState
 
     init {
-        combine(
-            _searchQuery,
-            _onlyFavorites,
-            _isReady
-        ) { query, onlyFav, ready ->
-            if (ready) {
-                _uiState.value = _uiState.value.copy(isLoading = true)
-                val ciudades = if (onlyFav) {
-                    repository.getFavorites()
-                } else if (query.isBlank()) {
-                    repository.getAll()
-                } else {
-                    repository.searchByName(query)
-                }
+        repository.getAll()
+            .onEach { lista ->
                 _uiState.value = _uiState.value.copy(
-                    ciudades = ciudades.sortedBy { it.name },
+                    ciudades = lista,
                     isLoading = false
                 )
             }
-        }.launchIn(viewModelScope)
+            .launchIn(viewModelScope)
     }
 
     fun verificarYDescargar(url: String) {
@@ -75,15 +66,23 @@ class CiudadViewModel(
         }
     }
 
-    val ciudades = combine(_searchQuery, _onlyFavorites) { query, onlyFav ->
-        if (onlyFav) {
-            repository.getFavorites()
-        } else if (query.isBlank()) {
+    val ciudades: StateFlow<List<CiudadEntity>> = combine(
+        _searchQuery,
+        _onlyFavorites
+    ) { query, onlyFav ->
+        if (query.isBlank()) {
             repository.getAll()
         } else {
             repository.searchByName(query)
+        }.map { baseList ->
+            if (onlyFav) {
+                baseList.filter { it.isFavorite }
+            } else {
+                baseList
+            }
         }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    }.flatMapLatest { it }
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     fun updateQuery(query: String) {
         _searchQuery.value = query
@@ -96,12 +95,6 @@ class CiudadViewModel(
     fun toggleFavorite(ciudad: CiudadEntity) {
         viewModelScope.launch {
             repository.toggleFavorite(ciudad.id, !ciudad.isFavorite)
-            val refreshed = if (_onlyFavorites.value) {
-                repository.getFavorites()
-            } else {
-                repository.getAll()
-            }
-            _uiState.value = _uiState.value.copy(ciudades = refreshed.sortedBy { it.name })
         }
     }
 }

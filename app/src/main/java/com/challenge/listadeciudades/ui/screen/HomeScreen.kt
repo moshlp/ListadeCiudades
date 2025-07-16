@@ -1,5 +1,6 @@
 package com.challenge.listadeciudades.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -66,7 +67,9 @@ fun HomeScreen(navController: NavHostController, viewModel: CiudadViewModel) {
                         CiudadItem(
                             ciudad = ciudad,
                             onToggleFavorite = { viewModel.toggleFavorite(ciudad) },
-                            onNavigateMap = {  },
+                            onNavigateMap = {
+                                navController.navigate("map/${ciudad.coord.lon}/${ciudad.coord.lat}")
+                            },
                             onOpenInfo = {
                                 navController.navigate("cityInfo/${ciudad.id}")
                             }
@@ -89,6 +92,7 @@ fun CiudadItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
+            .clickable { onNavigateMap() }
     ) {
         Column(Modifier.padding(16.dp)) {
             Text("${ciudad.name}, ${ciudad.country}", style = MaterialTheme.typography.titleMedium)
@@ -102,11 +106,6 @@ fun CiudadItem(
                     val icon = if (ciudad.isFavorite) Icons.Outlined.Favorite else Icons.Default.FavoriteBorder
                     Icon(icon, contentDescription = null)
                 }
-
-                Button(onClick = onNavigateMap) {
-                    Text("Ir al mapa")
-                }
-
                 Button(onClick = onOpenInfo) {
                     Text("Info")
                 }
