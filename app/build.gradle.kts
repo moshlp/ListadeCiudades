@@ -85,4 +85,9 @@ dependencies {
 
     implementation(libs.google.maps.compose)
     implementation(libs.google.play.services.maps)
+
+    implementation(libs.squareup.retrofit2.retrofit)
+    implementation(libs.squareup.retrofit2.converter.gson)
+
+    implementation(libs.coil.compose)
 }

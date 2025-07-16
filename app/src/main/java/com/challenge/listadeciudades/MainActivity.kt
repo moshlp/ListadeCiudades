@@ -8,12 +8,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.challenge.listadeciudades.ui.screen.CiudadDownloadScreen
-import com.challenge.listadeciudades.viewmodel.CiudadViewModel
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import androidx.navigation.compose.rememberNavController
+import com.challenge.listadeciudades.ui.screen.CiudadDownloadScreen
+import com.challenge.listadeciudades.ui.screen.CiudadInfoScreen
 import com.challenge.listadeciudades.ui.screen.HomeScreen
 import com.challenge.listadeciudades.ui.screen.MapaScreen
+import com.challenge.listadeciudades.viewmodel.CiudadViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -53,7 +54,10 @@ class MainActivity : ComponentActivity() {
                         onBack = { navController.popBackStack() }
                     )
                 }
-
+                composable("cityInfo/{name}") { backStackEntry ->
+                    val name = backStackEntry.arguments?.getString("name") ?: ""
+                    CiudadInfoScreen(name = name)
+                }
             }
         }
     }

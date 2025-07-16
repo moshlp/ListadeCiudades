@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.challenge.listadeciudades.data.local.CiudadEntity
 import com.challenge.listadeciudades.data.model.CiudadUiState
+import com.challenge.listadeciudades.data.model.WikipediaUiState
 import com.challenge.listadeciudades.data.remote.JsonDownloader
+import com.challenge.listadeciudades.data.remote.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,8 +21,10 @@ import kotlinx.coroutines.launch
 
 class CiudadViewModel(
     private val repository: CiudadRepository,
-    private val jsonDownloader: JsonDownloader
-) : ViewModel() {
+    private val jsonDownloader: JsonDownloader,
+    private val wikipediaRepository: WikipediaRepository,
+
+    ) : ViewModel() {
 
     private val _progreso = MutableStateFlow(0)
     val progreso: StateFlow<Int> get() = _progreso
@@ -96,5 +100,28 @@ class CiudadViewModel(
         viewModelScope.launch {
             repository.toggleFavorite(ciudad.id, !ciudad.isFavorite)
         }
+    }
+
+    private val _wikiUiState = MutableStateFlow(WikipediaUiState())
+    val wikiUiState: StateFlow<WikipediaUiState> = _wikiUiState
+
+    fun loadCityInfo(cityName: String) {
+        viewModelScope.launch {
+            _wikiUiState.value = WikipediaUiState(isLoading = true)
+            try {
+                val info = wikipediaRepository.getCityInfo(cityName)
+                _wikiUiState.value = WikipediaUiState(
+                    title = info.title.orEmpty(),
+                    extract = info.extract.orEmpty(),
+                    thumbnailUrl = info.thumbnail?.source
+                )
+            } catch (e: Exception) {
+                _wikiUiState.value = WikipediaUiState(isError = true)
+            }
+        }
+    }
+
+    fun resetWikiState() {
+        _wikiUiState.value = WikipediaUiState()
     }
 }
