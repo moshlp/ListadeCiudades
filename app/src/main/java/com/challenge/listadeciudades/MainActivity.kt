@@ -13,6 +13,7 @@ import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import androidx.navigation.compose.rememberNavController
 import com.challenge.listadeciudades.ui.screen.HomeScreen
+import com.challenge.listadeciudades.ui.screen.MapaScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +44,16 @@ class MainActivity : ComponentActivity() {
                 composable("home") {
                     HomeScreen(navController = navController, viewModel = viewModel)
                 }
+                composable("map/{lon}/{lat}") { backStackEntry ->
+                    val lon = backStackEntry.arguments?.getString("lon")?.toDoubleOrNull() ?: 0.0
+                    val lat = backStackEntry.arguments?.getString("lat")?.toDoubleOrNull() ?: 0.0
+                    MapaScreen(
+                        lon = lon,
+                        lat = lat,
+                        onBack = { navController.popBackStack() }
+                    )
+                }
+
             }
         }
     }

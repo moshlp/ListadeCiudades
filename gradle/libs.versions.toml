@@ -22,6 +22,8 @@ koin = "3.5.3"
 androidxLifecycle = "2.7.0"
 ksp = "2.0.21-1.0.27"
 androidxNavigation = "2.7.7"
+mapsCompose = "2.11.4"
+playServicesMaps = "18.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,6 +62,8 @@ insertkoin-koin-androidx-compose = { group = "io.insert-koin", name = "koin-andr
 # AndroidX Lifecycle
 androidx-lifecycle-viewmodelKtx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+google-maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
+google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

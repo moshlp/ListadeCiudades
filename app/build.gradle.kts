@@ -82,4 +82,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodelKtx)
 
     implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.google.maps.compose)
+    implementation(libs.google.play.services.maps)
 }
