@@ -6,7 +6,7 @@ import com.challenge.listadeciudades.data.local.CiudadEntity
 import com.challenge.listadeciudades.data.model.CiudadUiState
 import com.challenge.listadeciudades.data.model.WikipediaUiState
 import com.challenge.listadeciudades.data.remote.JsonDownloader
-import com.challenge.listadeciudades.data.remote.WikipediaRepository
+import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

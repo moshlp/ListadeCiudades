@@ -4,7 +4,7 @@ import androidx.room.Room
 import com.challenge.listadeciudades.data.local.AppDatabase
 import com.challenge.listadeciudades.data.remote.JsonDownloader
 import com.challenge.listadeciudades.data.remote.WikipediaApiService
-import com.challenge.listadeciudades.data.remote.WikipediaRepository
+import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
 import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
