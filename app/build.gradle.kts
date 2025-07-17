@@ -10,6 +10,12 @@ android {
     namespace = "com.challenge.listadeciudades"
     compileSdk = 35
 
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE.md,LICENSE-notice.md,LICENSE.txt,NOTICE.txt}"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.challenge.listadeciudades"
         minSdk = 24
@@ -107,5 +113,6 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.turbine)
 
-
+    testImplementation(libs.mockk.core)
+    androidTestImplementation(libs.mockk.android)
 }

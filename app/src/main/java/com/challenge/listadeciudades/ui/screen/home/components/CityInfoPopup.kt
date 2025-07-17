@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.challenge.listadeciudades.data.model.WikipediaUiState
@@ -58,7 +59,8 @@ fun CityInfoPopup(wikiState: WikipediaUiState, onDismiss: () -> Unit) {
             } else {
                 val scrollState = rememberScrollState()
                 Column(
-                    modifier = Modifier.verticalScroll(scrollState)
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
                 ) {
                     wikiState.thumbnailUrl?.let { imageUrl ->
                         AsyncImage(
@@ -69,7 +71,9 @@ fun CityInfoPopup(wikiState: WikipediaUiState, onDismiss: () -> Unit) {
                                 .height(180.dp)
                         )
                     }
-                    Text(wikiState.extract)
+                    Box(modifier = Modifier.testTag("CityInfoPopup")) {
+                        Text(text = wikiState.extract)
+                    }
                 }
             }
         }

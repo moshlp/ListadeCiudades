@@ -1,6 +1,6 @@
 package com.challenge.listadeciudades.ui.screen.map
 
-
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -14,6 +14,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.challenge.listadeciudades.data.local.CiudadEntity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
@@ -41,9 +42,16 @@ fun MapaScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Mapa") },
+                    title = {
+                        Box(Modifier.testTag("MapaScreen")) {
+                            Text("Mapa")
+                        }
+                    },
                     navigationIcon = {
-                        IconButton(onClick = onBack) {
+                        IconButton(
+                            onClick = onBack,
+                            modifier = Modifier.testTag("MapaBack")
+                        ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Volver"

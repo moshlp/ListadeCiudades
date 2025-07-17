@@ -6,8 +6,9 @@ import com.challenge.listadeciudades.data.local.CiudadEntity
 import com.challenge.listadeciudades.data.model.CiudadUiState
 import com.challenge.listadeciudades.data.model.WikipediaUiState
 import com.challenge.listadeciudades.data.remote.JsonDownloader
-import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
+import com.challenge.listadeciudades.data.repository.WikipediaRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,9 +23,9 @@ import kotlinx.coroutines.launch
 class CiudadViewModel(
     private val repository: CiudadRepository,
     private val jsonDownloader: JsonDownloader,
-    private val wikipediaRepository: WikipediaRepository,
+    private val wikipediaRepository: WikipediaRepository
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _progreso = MutableStateFlow(0)
     val progreso: StateFlow<Int> get() = _progreso
@@ -70,6 +71,7 @@ class CiudadViewModel(
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val ciudades: StateFlow<List<CiudadEntity>> = combine(
         _searchQuery,
         _onlyFavorites

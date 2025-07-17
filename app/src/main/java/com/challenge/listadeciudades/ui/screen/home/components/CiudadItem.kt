@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.challenge.listadeciudades.data.local.CiudadEntity
 
@@ -32,6 +33,7 @@ fun CiudadItem(
             .fillMaxWidth()
             .padding(vertical = 4.dp)
             .clickable { onNavigateMap() }
+            .testTag("card_${ciudad.name}")
     ) {
         Column(Modifier.padding(16.dp)) {
             Text("${ciudad.name}, ${ciudad.country}", style = MaterialTheme.typography.titleMedium)
@@ -41,12 +43,18 @@ fun CiudadItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                IconButton(onClick = onToggleFavorite) {
+                IconButton(
+                    modifier = Modifier.testTag("fav_${ciudad.name}"),
+                    onClick = onToggleFavorite
+                ) {
                     val icon =
                         if (ciudad.isFavorite) Icons.Outlined.Favorite else Icons.Default.FavoriteBorder
                     Icon(icon, contentDescription = null)
                 }
-                Button(onClick = onOpenInfo) {
+                Button(
+                    onClick = onOpenInfo,
+                    modifier = Modifier.testTag("info_${ciudad.name}")
+                ) {
                     Text("Info")
                 }
             }

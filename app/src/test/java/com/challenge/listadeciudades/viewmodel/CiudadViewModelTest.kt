@@ -227,8 +227,4 @@ class CiudadViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
-
-
-
-
 }

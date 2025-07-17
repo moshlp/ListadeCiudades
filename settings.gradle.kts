@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Lista de Ciudades"
 include(":app")
- 

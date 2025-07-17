@@ -10,7 +10,7 @@ class CiudadRepository(private val dao: CiudadDao) {
 
     fun searchByName(query: String): Flow<List<CiudadEntity>> = dao.searchByName(query)
 
-    suspend fun toggleFavorite(id: Int, isFavorite: Boolean){
+    suspend fun toggleFavorite(id: Int, isFavorite: Boolean) {
         return dao.toggleFavorite(id, isFavorite)
     }
 

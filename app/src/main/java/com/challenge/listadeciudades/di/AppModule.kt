@@ -4,8 +4,8 @@ import androidx.room.Room
 import com.challenge.listadeciudades.data.local.AppDatabase
 import com.challenge.listadeciudades.data.remote.JsonDownloader
 import com.challenge.listadeciudades.data.remote.WikipediaApiService
-import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
+import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -39,5 +39,4 @@ val appModule = module {
     single<String>(qualifier = named("citiesJsonUrl")) {
         "https://gist.githubusercontent.com/hernan-uala/dce8843a8edbe0b0018b32e137bc2b3a/raw/0996accf70cb0ca0e16f9a99e0ee185fafca7af1/cities.json"
     }
-
 }

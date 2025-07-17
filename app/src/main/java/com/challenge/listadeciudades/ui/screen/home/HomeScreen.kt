@@ -14,13 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavHostController
 import com.challenge.listadeciudades.data.local.CiudadEntity
-import com.challenge.listadeciudades.ui.screen.map.MapaScreen
 import com.challenge.listadeciudades.ui.screen.home.components.BuscadorPanel
 import com.challenge.listadeciudades.ui.screen.home.components.CityInfoPopup
+import com.challenge.listadeciudades.ui.screen.map.MapaScreen
 import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 
 @Composable
-fun HomeScreen(navController: NavHostController, viewModel: CiudadViewModel) {
+fun HomeScreen(
+    navController: NavHostController,
+    viewModel: CiudadViewModel,
+    isLandscapeOverride: Boolean? = null
+) {
     val ciudades by viewModel.ciudades.collectAsState()
     val query by viewModel.searchQuery.collectAsState()
     val onlyFav by viewModel.onlyFavorites.collectAsState()
@@ -28,7 +32,8 @@ fun HomeScreen(navController: NavHostController, viewModel: CiudadViewModel) {
     val wikiState by viewModel.wikiUiState.collectAsState()
     var showInfoPopup by remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
-    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val isLandscape =
+        (isLandscapeOverride ?: configuration.orientation) == Configuration.ORIENTATION_LANDSCAPE
     var selectedCity by remember { mutableStateOf<CiudadEntity?>(null) }
 
     if (isLandscape) {

@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.challenge.listadeciudades.data.local.CiudadEntity
 
@@ -39,13 +40,16 @@ fun BuscadorPanel(
             value = query,
             onValueChange = onQueryChange,
             label = { Text("Buscar ciudad") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("textfield_search")
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = onlyFav,
-                onCheckedChange = { onToggleOnlyFavorites() }
+                onCheckedChange = { onToggleOnlyFavorites() },
+                modifier = Modifier.testTag("checkbox_onlyFavorites")
             )
             Text("Mostrar solo favoritos")
         }
