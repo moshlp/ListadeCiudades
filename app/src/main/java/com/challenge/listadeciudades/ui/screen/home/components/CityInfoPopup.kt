@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.AlertDialog
@@ -54,7 +56,10 @@ fun CityInfoPopup(wikiState: WikipediaUiState, onDismiss: () -> Unit) {
             } else if (wikiState.isError) {
                 Text("Error al cargar información.")
             } else {
-                Column {
+                val scrollState = rememberScrollState()
+                Column(
+                    modifier = Modifier.verticalScroll(scrollState)
+                ) {
                     wikiState.thumbnailUrl?.let { imageUrl ->
                         AsyncImage(
                             model = imageUrl,

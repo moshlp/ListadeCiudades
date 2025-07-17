@@ -90,4 +90,22 @@ dependencies {
     implementation(libs.squareup.retrofit2.converter.gson)
 
     implementation(libs.coil.compose)
+
+    // JUnit
+    testImplementation(libs.junit)
+
+// Kotlin Coroutines Test
+    testImplementation(libs.kotlinx.coroutines.test)
+
+// Mockito core y Kotlin support
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
+// Assertions (opcional, pero recomendado)
+    testImplementation(libs.hamcrest)
+
+    testImplementation(libs.koin.test)
+    testImplementation(libs.turbine)
+
+
 }

@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:name=".ChallengeApp"
+        android:name=".core.ChallengeApp"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +19,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB_84rIiPxR12Ua2vS8kM1ev5GIPisVh8g" />
         <activity
-            android:name=".MainActivity"
+            android:name=".core.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ListaDeCiudades">

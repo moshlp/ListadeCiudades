@@ -1,4 +1,4 @@
-package com.challenge.listadeciudades
+package com.challenge.listadeciudades.core
 
 import android.app.Application
 import com.challenge.listadeciudades.di.appModule

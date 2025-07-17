@@ -8,6 +8,7 @@ import com.challenge.listadeciudades.data.repository.WikipediaRepository
 import com.challenge.listadeciudades.data.repository.CiudadRepository
 import com.challenge.listadeciudades.viewmodel.CiudadViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,6 +34,10 @@ val appModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(WikipediaApiService::class.java)
+    }
+
+    single<String>(qualifier = named("citiesJsonUrl")) {
+        "https://gist.githubusercontent.com/hernan-uala/dce8843a8edbe0b0018b32e137bc2b3a/raw/0996accf70cb0ca0e16f9a99e0ee185fafca7af1/cities.json"
     }
 
 }
