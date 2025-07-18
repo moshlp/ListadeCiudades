@@ -1,3 +1,5 @@
+📄[Descargar Mobile Challenge (PDF)](/docs/Mobile Challenge - Engineer - v0.8.pdf)
+
 # 📍 Lista de Ciudades
 
 Aplicación Android desarrollada con **Jetpack Compose**, que permite:
