@@ -1,4 +1,5 @@
-📄[Descargar Mobile Challenge (PDF)](/docs/Mobile Challenge - Engineer - v0.8.pdf)
+📄 [Descargar Mobile Challenge (PDF)](/docs/Mobile%20Challenge%20-%20Engineer%20-%20v0.8.pdf)
+
 
 # 📍 Lista de Ciudades
 
